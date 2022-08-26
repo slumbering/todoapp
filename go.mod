@@ -4,9 +4,9 @@ go 1.19
 
 replace github.com/docker/docker => github.com/docker/docker v20.10.3-0.20220414164044-61404de7df1a+incompatible
 
-replace github.com/dagger/cloak => github.com/sipsma/cloak v0.0.0-20220826025351-bf372bc0bc94
+replace github.com/dagger/cloak => github.com/sipsma/cloak v0.0.0-20220826204050-e74e22d380d8
 
-require github.com/dagger/cloak v0.0.0-20220825042406-4955108a9240
+require github.com/dagger/cloak v0.0.0-20220826183549-d44b8252041d
 
 require (
 	github.com/Khan/genqlient v0.5.0 // indirect

@@ -15,7 +15,7 @@ import (
 )
 
 func main() {
-	if err := engine.Start(context.Background(), &engine.Config{}, func(ctx context.Context, _ *coretypes.Extension, _ map[string]dagger.FSID) error {
+	if err := engine.Start(context.Background(), &engine.Config{}, func(ctx context.Context, _ *coretypes.Project, _ map[string]dagger.FSID) error {
 		token, ok := os.LookupEnv("NETLIFY_AUTH_TOKEN")
 		if !ok {
 			return fmt.Errorf("NETLIFY_AUTH_TOKEN not set")
