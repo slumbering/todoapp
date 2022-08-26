@@ -7,6 +7,18 @@ if (!process.env.NETLIFY_AUTH_TOKEN) {
 	process.exit(1)
 
 }
+
+const netlifySiteName = null
+if (process.env.NETLIFY_SITE_NAME) {
+	const netlifySiteName = process.env.NETLIFY_SITE_NAME
+} else {
+	const netlifySiteName = `${process.env.USER}-dagger-todoapp`
+	console.log(`
+		Netlify site name not specified in $NETLIFY_SITE_NAME.
+		Defaulting to "${netlifySiteName}".
+	`)
+}
+
 const netlifyTokenCleartext = process.env.NETLIFY_AUTH_TOKEN
 
 // Start cloak engine
@@ -54,7 +66,7 @@ new Engine({
 			deploy(
 				contents: "${sourceAfterBuild.id}",
 				subdir: "build",
-				siteName: "sam-cloak-test-demo",
+				siteName: "${netlifySiteName}",
 				token: "${netlifyTokenSecret
 			}") {
 				url
