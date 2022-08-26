@@ -1,13 +1,11 @@
 name: todoapp
 sources:
-  - path: workflows/build
+#  - path: workflows/deploy-1
+#    sdk: ts
+  - path: workflows/deploy-2
     sdk: ts
-  - path: workflows/build-easy
-    sdk: ts
-  - path: workflows/deploy
+  - path: workflows/deploy-3
     sdk: go
-  - path: workflows/deploy-easy
-    sdk: ts
 dependencies:
   # Erik's modified yarn extension
   - git:

@@ -1,9 +1,19 @@
 // Build todoapp, the EASY way
 import { gql, Engine } from "@dagger.io/dagger";
 
+// Check for netlify token
+if (!process.env.NETLIFY_AUTH_TOKEN) {
+	console.log("Missing netlify API token. Please set it to the env variable $NETLIFY_AUTH_TOKEN")
+	process.exit(1)
+
+}
+const netlifyTokenCleartext = process.env.NETLIFY_AUTH_TOKEN
+
+// Start cloak engine
 new Engine({
 	ConfigPath: process.env.CLOAK_CONFIG
 }).run(async (client) => {
+	
 	// 1. Load app source code from working directory
 	const source = await client.request(gql`
 	{
@@ -17,22 +27,22 @@ new Engine({
 	}
   `).then((result) => result.host.workdir.read)
 
-	// 2. Install yarn in a container
+	// 2. Build the app with yarn
 	const sourceAfterBuild = await client.request(gql`
 	{
 	  yarn {
-		script(source: "${source.id}", runArgs: ["react-scripts", "build"]) {
+		script(source: "${source.id}", runArgs: ["build"]) {
 			id
 		}
 	  }
 	}
 	`).then((result) => result.yarn.script)
 
-	// 3. set netlify token as secret (read from the env)
-	const netlifyToken = await client.request(gql`
+	// 3. Load netlify token into a secret
+	const netlifyTokenSecret = await client.request(gql`
 	{
 		core {
-			addSecret(plaintext: "${process.env.NETLIFY_AUTH_TOKEN}")
+			addSecret(plaintext: "${netlifyTokenCleartext}")
 		}
 	}
 	`).then((result) => result.core.addSecret)
@@ -41,7 +51,12 @@ new Engine({
 	const result = await client.request(gql`
 	{
 		netlify {
-			deploy(contents: "${sourceAfterBuild.id}", subdir: "build", siteName: "sam-cloak-test-demo", token: "${netlifyToken}") {
+			deploy(
+				contents: "${sourceAfterBuild.id}",
+				subdir: "build",
+				siteName: "sam-cloak-test-demo",
+				token: "${netlifyTokenSecret
+			}") {
 				url
 				deployURL
 			}
