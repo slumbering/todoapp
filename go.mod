@@ -4,14 +4,12 @@ go 1.19
 
 replace github.com/docker/docker => github.com/docker/docker v20.10.3-0.20220414164044-61404de7df1a+incompatible
 
-replace github.com/dagger/cloak => github.com/sipsma/cloak v0.0.0-20220825051444-07ed249a8630
+replace github.com/dagger/cloak => github.com/sipsma/cloak v0.0.0-20220826025351-bf372bc0bc94
+
+require github.com/dagger/cloak v0.0.0-20220825042406-4955108a9240
 
 require (
-	github.com/Khan/genqlient v0.5.0
-	github.com/dagger/cloak v0.0.0-00010101000000-000000000000
-)
-
-require (
+	github.com/Khan/genqlient v0.5.0 // indirect
 	github.com/Microsoft/go-winio v0.5.2 // indirect
 	github.com/agext/levenshtein v1.2.3 // indirect
 	github.com/bhoriuchi/graphql-go-tools v1.0.0 // indirect

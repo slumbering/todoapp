@@ -8,7 +8,6 @@ import (
 
 	coretypes "github.com/dagger/cloak/core"
 	"github.com/dagger/cloak/engine"
-
 	"github.com/dagger/cloak/sdk/go/dagger"
 	"github.com/dagger/todoapp/workflows/deploy/gen/core"
 	"github.com/dagger/todoapp/workflows/deploy/gen/netlify"
